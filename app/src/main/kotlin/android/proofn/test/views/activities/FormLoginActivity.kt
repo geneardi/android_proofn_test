@@ -52,13 +52,16 @@ class FormLoginActivity : BaseActivity<FormLoginPresenter>(), FormLoginContract.
             }
 
             private fun forward(command: Forward) {
+                val data = (command.transitionData)
                 when (command.screenKey) {
+
 //                    VerifyLoginActivity.TAG -> {
 //                        val data = (command.transitionData as OtpModel)
 //                        startActivity(Intent(this@FormLoginActivity, VerifyLoginActivity::class.java)
 //                            .putExtra("data", data as Parcelable))
 //                    }  // 4
-                    HomeActivity.TAG -> startActivity(Intent(this@FormLoginActivity, HomeActivity::class.java))
+                    HomeActivity.TAG -> startActivity(Intent(this@FormLoginActivity, HomeActivity::class.java).
+                    putExtra("token", data as String))
 
                     else -> Log.e("Cicerone", "Unknown screen: " + command.screenKey)
                 }
@@ -98,8 +101,8 @@ class FormLoginActivity : BaseActivity<FormLoginPresenter>(), FormLoginContract.
     }
 
     private fun init(){
-        editTextEmaail?.addTextChangedListener(InputTextListener())
-        editTextPassword?.addTextChangedListener(InputTextListener())
+//        editTextEmaail?.addTextChangedListener(InputTextListener())
+//        editTextPassword?.addTextChangedListener(InputTextListener())
         buttonLogin?.setOnClickListener {
             if(editTextEmaail?.text.isNullOrEmpty() || editTextPassword?.text.isNullOrEmpty()){
                 Toast.makeText(getActivity(), "isi form dengan benar",
@@ -123,28 +126,6 @@ class FormLoginActivity : BaseActivity<FormLoginPresenter>(), FormLoginContract.
         BaseApplication.INSTANCE.proofnCicerone.navigatorHolder.removeNavigator()
     }
 
-    private inner class InputTextListener : TextWatcher {
-        override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {
-            buttonLogin?.background = ContextCompat
-                    .getDrawable(applicationContext, R.drawable.btn_rounded_primary)
-            buttonLogin?.isEnabled = true
-        }
-
-        override fun onTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {
-            if (TextUtils.isEmpty(editTextEmaail?.text.toString()) &&TextUtils.isEmpty(editTextPassword?.text.toString())) {
-                buttonLogin?.background = ContextCompat
-                        .getDrawable(applicationContext, R.drawable.btn_rounded_grey)
-                buttonLogin?.isEnabled = false
-            } else {
-                buttonLogin?.background = ContextCompat
-                        .getDrawable(applicationContext, R.drawable.btn_rounded_primary)
-            }
-        }
-
-        override fun afterTextChanged(editable: Editable) {
-
-        }
-    }
 
 
 }

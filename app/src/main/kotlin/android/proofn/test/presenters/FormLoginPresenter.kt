@@ -32,14 +32,20 @@ class FormLoginPresenter(
 
     private inner class LoginEvenListener : LoginListener {
         override fun onResponse(loginResponse: LoginResponse) {
-            router.navigateTo(HomeActivity.TAG)
-            Hawk.init(context)
-                    .setEncryptionMethod(HawkBuilder.EncryptionMethod.NO_ENCRYPTION)
-                    .setStorage(HawkBuilder.newSqliteStorage(context))
-                    .setLogLevel(LogLevel.FULL)
-                    .build()
-            val data = loginResponse.token
-            Hawk.put("token", data)
+//            Toast.makeText(formLoginView.getActivity(), "login berhasil",
+//                    Toast.LENGTH_LONG).show()
+
+//            Hawk.init(context)
+//                    .setEncryptionMethod(HawkBuilder.EncryptionMethod.NO_ENCRYPTION)
+//                    .setStorage(HawkBuilder.newSqliteStorage(context))
+//                    .setLogLevel(LogLevel.FULL)
+//                    .build()
+//            val data = loginResponse.token
+//            Log.i("login-token", loginResponse.token)
+            val token = loginResponse.token
+//            Hawk.put("token", data)
+            router.navigateTo(HomeActivity.TAG, token)
+
             view.finishView()
         }
 

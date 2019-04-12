@@ -109,15 +109,19 @@ class HomeActivity : BaseActivity<HomePresenter>(), HomeContract.View {
         this.init()
         this.initToolbar()
         this.initNavigationMenu()
-    }
-
-    private fun init(){
         Hawk.init(this)
                 .setEncryptionMethod(HawkBuilder.EncryptionMethod.NO_ENCRYPTION)
                 .setStorage(HawkBuilder.newSqliteStorage(this))
                 .setLogLevel(LogLevel.FULL)
                 .build()
-        header = "Bearer "+Hawk.get("token")
+
+    }
+
+    private fun init(){
+        val argument = intent.getStringExtra("token")
+
+        header = "Bearer $argument"
+        Hawk.put("token", argument)
         presenter.getMessage(GetMessageEventListener(), header)
         presenter.getUserProfile(GetUserProfileEventListener(), header)
         Log.i("token", header)

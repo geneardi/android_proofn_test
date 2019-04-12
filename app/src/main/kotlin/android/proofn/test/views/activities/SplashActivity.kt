@@ -25,8 +25,9 @@ class SplashActivity : BaseActivity<SplashPresenter>(), SplashContract.View {
             }
 
             private fun forward(command: Forward) {
+                val data = (command.transitionData)
                 when (command.screenKey) {
-                    HomeActivity.TAG -> startActivity(Intent(this@SplashActivity, HomeActivity::class.java))
+                    HomeActivity.TAG -> startActivity(Intent(this@SplashActivity, HomeActivity::class.java).putExtra("token", data as String))
                     FormLoginActivity.TAG -> startActivity(Intent(this@SplashActivity, FormLoginActivity::class.java))
                     else -> Log.e("Cicerone", "Unknown screen: " + command.screenKey)
                 }
@@ -54,6 +55,7 @@ class SplashActivity : BaseActivity<SplashPresenter>(), SplashContract.View {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
+
     }
 
     override fun onResume() {

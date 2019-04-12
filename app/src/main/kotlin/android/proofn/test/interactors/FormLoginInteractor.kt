@@ -39,8 +39,8 @@ class FormLoginInteractor : FormLoginContract.Interactor{
                         {error ->
                             run {
                                 if (error.message.isNullOrEmpty()) {
-                                    Log.i("login-masuk", "error")
                                     progressDialogView.closeProgressDialog(dialog)
+                                    Log.i("login-masuk", "error")
                                     loginListener.onFailure(error)
 
                                 }
