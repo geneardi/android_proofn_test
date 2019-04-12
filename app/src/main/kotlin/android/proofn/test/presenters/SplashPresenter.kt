@@ -29,8 +29,8 @@ class SplashPresenter(
                 .setStorage(HawkBuilder.newSqliteStorage(splashView.getContext()))
                 .setLogLevel(LogLevel.FULL)
                 .build()
-        token = Hawk.get("token")
-        if(token.isEmpty()){
+        token = Hawk.get("token", "0")
+        if(token == "0"){
             router.navigateTo(FormLoginActivity.TAG)
         }else{
             router.navigateTo(HomeActivity.TAG)
