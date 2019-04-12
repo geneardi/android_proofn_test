@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--General configs-->
+    <string name="app_name">android_proofn_test</string>
+    <string name="empty" />
+    <string name="datetime_format">yyyy-MM-dd HH:mm:ss</string>
+
+    <!--General message-->
+    <string name="message_failed">Ada yang salah.. Silakan coba nanti!</string>
+    <string name="message_request_on_going">Request sedang dilakukan</string>
+    <string name="message_no_permission_requested">Tidak ada perizinan yang diminta</string>
+
+    <integer name="delayShort">100</integer>
+    <integer name="delayMedium">1000</integer>
+    <integer name="delayLong">10000</integer>
+
+    <!--Unit Lenght -->
+    <string name="unit_km"> km</string>
+
+    <string name="max_description_character">100</string>
+</resources>

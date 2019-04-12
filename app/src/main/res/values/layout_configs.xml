@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--Layouts config-->
+
+    <!--Splash layout configs-->
+    <integer name="splashTimeOut">2000</integer>
+    <string name="splash_logo_info">logo</string>
+    <string name="splash_header_info">Header splash</string>
+    <string name="splash_footer_info">Footer splash</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <!--Intro layout configs-->
+    <integer name="intro_max_steps">4</integer>
+    <integer name="intro_page_limit">4</integer>
+    <string name="intro_button_next_text">Lanjut</string>
+    <string name="intro_button_start_text">Mulai</string>
+    <string name="intro_button_skip_text">Lewati</string>
+    <string name="intro_info_splash_image">Splash Image</string>
+
+    <!--Form login layout configs-->
+    <string name="form_login_title">Login</string>
+    <string name="form_login_input_phone_number">Pilih kode telepon negara yang sesuai dan masukan nomor ponsel anda</string>
+    <string name="form_login_hint_phone_number">No. Handphone</string>
+    <string name="form_login_text_btn_login">LOGIN</string>
+    <string name="form_login_suggest_register_1">Belum memiliki akun?</string>
+    <string name="form_login_suggest_register_2">Silahkan</string>
+    <string name="form_login_suggest_register_3">Silahkan Registrasi</string>
+    <string name="form_login_text_btn_register">Registrasi</string>
+    <string name="form_login_message_success">Kode Otp berhasil dikirim</string>
+    <string name="form_login_message_failed">Kode Otp gagal dikirim</string>
+
+    <!--Verify login layout configs-->
+    <string name="verify_login_info_header_logo">Header Logo</string>
+    <string name="verify_login_title">Verifikasi Login</string>
+    <string name="verify_login_input_otp">Masukan kode OTP yang dikirim pada nomor
+    - untuk melanjutkan Log In</string>
+    <string name="verify_login_input_otp_prefix">Masukan kode OTP yang dikirim pada nomor </string>
+    <string name="verify_login_input_otp_default">-</string>
+    <string name="verify_login_input_otp_suffix"> untuk melanjutkan Log In.</string>
+    <string name="verify_login_hint_otp">X</string>
+    <string name="verify_login_text_btn">Verifikasi</string>
+    <string name="verify_login_resend_otp">Kode OTP Log In Belum diterima?
+Kirim ulang kode OTP ke -</string>
+    <string name="verify_login_resend_otp_prefix">Kode OTP Log In Belum diterima?</string>
+    <string name="verify_login_resend_otp_prefix_2">Kirim ulang kode OTP ke </string>
+    <string name="verify_login_resend_otp_default">-</string>
+    <string name="verify_login_text_btn_resend">Kirim Ulang</string>
+    <string name="verify_login_message_success">Verifikasi berhasil</string>
+    <string name="verify_login_message_failed">Verifikasi gagal</string>
+
+</resources>

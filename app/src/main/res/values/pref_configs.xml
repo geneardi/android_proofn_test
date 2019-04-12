@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--Shared Preferences config-->
+
+    <!--Shared preferences general configs-->
+    <string name="pref_name">MAMANG_PREF</string>
+
+    <!--Shared preferences intro configs-->
+    <string name="pref_intro_status">PREF_INTRO_STATUS</string>
+
+    <!--Shared preferences token configs-->
+    <string name="pref_token">PREF_TOKEN</string>
+    <string name="pref_token_exp">PREF_TOKEN_EXP</string>
+
+    <!--Shared preferences user configs-->
+    <string name="pref_user_id">PREF_USER_ID</string>
+    <string name="pref_user_phone">PREF_USER_PHONE</string>
+    <string name="pref_user_name">PREF_USER_NAME</string>
+    <string name="pref_user_email">PREF_USER_EMAIL</string>
+    <string name="pref_user_balance">PREF_USER_BALANCE</string>
+</resources>

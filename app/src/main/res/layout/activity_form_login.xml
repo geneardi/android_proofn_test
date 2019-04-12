@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+     android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:background="@color/colorAccent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingTop="75dp"
+            android:paddingLeft="25dp"
+            android:paddingRight="25dp"
+            android:paddingBottom="35dp"
+            android:background="@color/white">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/nunito_light"
+                android:text="@string/form_login_title"
+                android:gravity="center"
+                android:textAlignment="center"
+                android:textSize="35sp"
+                />
+                <EditText android:id="@+id/edit_text_email"
+                    android:paddingLeft="10dp"
+                    android:paddingStart="10dp"
+                    android:layout_width="fill_parent"
+                    android:layout_height="40dp"
+                    android:inputType="textEmailAddress"
+                    android:hint="Email"
+                    android:textSize="15sp"
+                    android:gravity="center_vertical"
+                    android:background="@drawable/edit_text_style_right"
+                    android:fontFamily="@font/nunito_regular"
+                    tools:ignore="Autofill,RtlSymmetry" />
+            <EditText android:id="@+id/edit_text_password"
+                android:paddingLeft="10dp"
+                android:paddingStart="10dp"
+                android:layout_width="fill_parent"
+                android:layout_height="40dp"
+                android:hint="Password"
+                android:inputType="textPassword"
+                android:textSize="15sp"
+                android:gravity="center_vertical"
+                android:background="@drawable/edit_text_style_right"
+                android:fontFamily="@font/nunito_regular"
+                tools:ignore="Autofill,RtlSymmetry" />
+
+
+
+            <Button
+                android:id="@+id/button_login"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/nunito_bold"
+                android:background="@drawable/btn_rounded_grey"
+                android:text="@string/form_login_text_btn_login"
+
+                android:paddingLeft="75dp"
+                android:paddingRight="75dp"
+                android:paddingEnd="75dp"
+                android:paddingStart="75dp"
+                android:textColor="@android:color/white"
+                android:gravity="center"
+                android:layout_gravity="center"
+                tools:ignore="RtlSymmetry" />
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+</ScrollView>
