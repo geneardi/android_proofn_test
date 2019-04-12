@@ -1,12 +1,12 @@
 package android.proofn.test.views.activities
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.os.Bundle
 import android.proofn.test.BaseApplication
 import android.proofn.test.R
 import android.proofn.test.contracts.SendMessageContract
-import android.proofn.test.entities.MessageModel
 import android.proofn.test.entities.MessageSentModel
 import android.proofn.test.interactors.SendMessageInteractor
 import android.proofn.test.interactors.outputs.SendMessageListener
@@ -28,12 +28,7 @@ import ru.terrakok.cicerone.commands.Forward
 
 class SendMessageActivity : BaseActivity<SendMessagePresenter>(), SendMessageContract.View  {
 
-    private var item : MessageModel? = null
     private lateinit var header : String
-
-    private val textViewTo: TextView? by lazy { to }
-    private val textViewCC: TextView? by lazy { cc }
-    private val textViewBcc: TextView? by lazy { bcc }
     private val textViewSubject: TextView? by lazy { subject }
     private val textViewContent: TextView? by lazy { content }
     private val toolbars : Toolbar? by lazy { toolbar }
@@ -52,8 +47,6 @@ class SendMessageActivity : BaseActivity<SendMessagePresenter>(), SendMessageCon
 
             private fun forward(command: Forward) {
                 when (command.screenKey) {
-//                    FormLoginActivity.TAG -> startActivity(Intent(this@HomeActivity, FormLoginActivity::class.java))
-//                    else -> Log.e("Cicerone", "Unknown screen: " + command.screenKey)
                 }
             }
         }
@@ -92,6 +85,7 @@ class SendMessageActivity : BaseActivity<SendMessagePresenter>(), SendMessageCon
         BaseApplication.INSTANCE.proofnCicerone.navigatorHolder.setNavigator(navigator)
     }
 
+    @SuppressLint("PrivateResource")
     private fun initToolbar() {
         toolbars?.setNavigationIcon(R.drawable.abc_ic_ab_back_material)
         setSupportActionBar(toolbar)

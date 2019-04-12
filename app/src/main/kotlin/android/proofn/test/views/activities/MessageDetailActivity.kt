@@ -46,8 +46,6 @@ class MessageDetailActivity : BaseActivity<MessageDetailPresenter>(), MessageDet
 
             private fun forward(command: Forward) {
                 when (command.screenKey) {
-//                    FormLoginActivity.TAG -> startActivity(Intent(this@HomeActivity, FormLoginActivity::class.java))
-//                    else -> Log.e("Cicerone", "Unknown screen: " + command.screenKey)
                 }
             }
         }

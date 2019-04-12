@@ -10,14 +10,8 @@ import android.proofn.test.R
 import android.proofn.test.contracts.FormLoginContract
 import android.proofn.test.interactors.FormLoginInteractor
 import android.proofn.test.presenters.FormLoginPresenter
-import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatDelegate
-import android.support.v7.widget.Toolbar
-import android.text.Editable
-import android.text.TextUtils
-import android.text.TextWatcher
 import android.util.Log
-import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
@@ -25,12 +19,9 @@ import com.orhanobut.hawk.Hawk
 import com.orhanobut.hawk.HawkBuilder
 import com.orhanobut.hawk.LogLevel
 import kotlinx.android.synthetic.main.activity_form_login.*
-import okhttp3.Route
 import ru.terrakok.cicerone.Navigator
-import ru.terrakok.cicerone.Router
 import ru.terrakok.cicerone.commands.Command
 import ru.terrakok.cicerone.commands.Forward
-import javax.inject.Inject
 
 class FormLoginActivity : BaseActivity<FormLoginPresenter>(), FormLoginContract.View {
 
@@ -54,12 +45,6 @@ class FormLoginActivity : BaseActivity<FormLoginPresenter>(), FormLoginContract.
             private fun forward(command: Forward) {
                 val data = (command.transitionData)
                 when (command.screenKey) {
-
-//                    VerifyLoginActivity.TAG -> {
-//                        val data = (command.transitionData as OtpModel)
-//                        startActivity(Intent(this@FormLoginActivity, VerifyLoginActivity::class.java)
-//                            .putExtra("data", data as Parcelable))
-//                    }  // 4
                     HomeActivity.TAG -> startActivity(Intent(this@FormLoginActivity, HomeActivity::class.java).
                     putExtra("token", data as String))
 
@@ -101,8 +86,6 @@ class FormLoginActivity : BaseActivity<FormLoginPresenter>(), FormLoginContract.
     }
 
     private fun init(){
-//        editTextEmaail?.addTextChangedListener(InputTextListener())
-//        editTextPassword?.addTextChangedListener(InputTextListener())
         buttonLogin?.setOnClickListener {
             if(editTextEmaail?.text.isNullOrEmpty() || editTextPassword?.text.isNullOrEmpty()){
                 Toast.makeText(getActivity(), "isi form dengan benar",

@@ -56,7 +56,6 @@ class HomeActivity : BaseActivity<HomePresenter>(), HomeContract.View {
     private var actionBar: ActionBar? = null
     private val drawer : DrawerLayout by lazy { drawer_layout }
     var urlImage: String? = null
-    private var isImageFitToScreen: Boolean = false
 
     private lateinit var mAdapter: MessageListAdapter
 
@@ -145,12 +144,10 @@ class HomeActivity : BaseActivity<HomePresenter>(), HomeContract.View {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.action_send) {
-////            finish()
             presenter.onSendMessageSelected()
         }
         else if(item.itemId == android.R.id.home){
             finish()
-            //presenter.getMessageDetail(GetMessageDetailEventListener(), header)
         }
         return super.onOptionsItemSelected(item)
     }
@@ -182,7 +179,6 @@ class HomeActivity : BaseActivity<HomePresenter>(), HomeContract.View {
 
                 override fun onItemClick(view: View, obj: MessageModel, position: Int) {
                     presenter.onItemSelected(obj.id!!)
-//                    Snackbar.make(lytParent, "Item " + obj.name + " clicked", Snackbar.LENGTH_SHORT).show()
                 }
             })
         }

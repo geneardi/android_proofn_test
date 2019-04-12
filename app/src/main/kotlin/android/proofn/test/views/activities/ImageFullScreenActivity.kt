@@ -125,7 +125,6 @@ class ImageFullScreenActivity : BaseActivity<ImageFullScreenPresenter>(), ImageF
                 .setLogLevel(LogLevel.FULL)
                 .build()
         header = "Bearer "+Hawk.get("token")
-        //presenter.getMessage(GetMessageEventListener(), header)
     }
 
     override fun onPause() {
@@ -147,7 +146,6 @@ class ImageFullScreenActivity : BaseActivity<ImageFullScreenPresenter>(), ImageF
 
                 override fun onItemClick(view: View, obj: MessageModel, position: Int) {
                     presenter.onItemSelected()
-//                    Snackbar.make(lytParent, "Item " + obj.name + " clicked", Snackbar.LENGTH_SHORT).show()
                 }
             })
         }
