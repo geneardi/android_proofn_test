@@ -52,6 +52,7 @@ abstract class BasePresenter<out V : BaseContract.View, out I : BaseContract.Int
             is SplashPresenter -> injector.inject(this)
             is SendMessagePresenter -> injector.inject(this)
             is ImageFullScreenPresenter -> injector.inject(this)
+            is EditProfilePresenter -> injector.inject(this)
         }
     }
 }

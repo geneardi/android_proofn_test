@@ -18,6 +18,7 @@ interface ProofnComponent {
     fun inject(splashPresenter: SplashPresenter)
     fun inject(sendMessagePresenter: SendMessagePresenter)
     fun inject(imageFullScreenPresenter: ImageFullScreenPresenter)
+    fun inject(editProfilePresenter: EditProfilePresenter)
 
     @Component.Builder
     interface Builder {

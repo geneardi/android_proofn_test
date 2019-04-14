@@ -33,7 +33,6 @@ class SplashPresenter(
         if(Hawk.contains("token")){
             token = Hawk.get("token")
             router.navigateTo(HomeActivity.TAG,token)
-
         }else{
             router.navigateTo(FormLoginActivity.TAG)
         }

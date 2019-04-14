@@ -25,6 +25,7 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -109,17 +110,15 @@ class HomeActivity : BaseActivity<HomePresenter>(), HomeContract.View {
         this.init()
         this.initToolbar()
         this.initNavigationMenu()
+    }
+
+    private fun init(){
+        val argument = intent.getStringExtra("token")
         Hawk.init(this)
                 .setEncryptionMethod(HawkBuilder.EncryptionMethod.NO_ENCRYPTION)
                 .setStorage(HawkBuilder.newSqliteStorage(this))
                 .setLogLevel(LogLevel.FULL)
                 .build()
-
-    }
-
-    private fun init(){
-        val argument = intent.getStringExtra("token")
-
         header = "Bearer $argument"
         Hawk.put("token", argument)
         presenter.getMessage(GetMessageEventListener(), header)
@@ -209,7 +208,7 @@ class HomeActivity : BaseActivity<HomePresenter>(), HomeContract.View {
         navigation_header.findViewById<CircularImageView>(R.id.avatar).setOnClickListener {
             presenter.onImageSelected(urlImage)
         }
-        navigation_header.findViewById<CircularImageView>(R.id.bt_account).setOnClickListener {
+        navigation_header.findViewById<ImageButton>(R.id.bt_account).setOnClickListener {
             presenter.gotoedit()
         }
     }

@@ -29,7 +29,7 @@ interface ProofnRequestService {
             : Observable<MessageSentModel>
 
     @Headers("Content-Type: application/json")
-    @POST("/v1/message/send")
+    @POST("/v1/user/profile")
     fun editProfile(@Header("Authorization") value: String, @Body message: EditProfileMessage)
             : Observable<UserModel>
 
