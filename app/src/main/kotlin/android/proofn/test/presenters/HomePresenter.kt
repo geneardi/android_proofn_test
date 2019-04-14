@@ -4,10 +4,7 @@ import android.proofn.test.contracts.BaseContract
 import android.proofn.test.contracts.HomeContract
 import android.proofn.test.utils.networks.ProofnRequestService
 import android.proofn.test.utils.views.ProgressDialogView
-import android.proofn.test.views.activities.HomeActivity
-import android.proofn.test.views.activities.ImageFullScreenActivity
-import android.proofn.test.views.activities.MessageDetailActivity
-import android.proofn.test.views.activities.SendMessageActivity
+import android.proofn.test.views.activities.*
 import ru.terrakok.cicerone.Router
 import javax.inject.Inject
 
@@ -25,6 +22,10 @@ class HomePresenter(homeView: HomeContract.View,
 
     fun onSendMessageSelected() {
             router.navigateTo(SendMessageActivity.TAG)
+    }
+
+    fun gotoedit() {
+        router.navigateTo(EditProfileActivity.TAG)
     }
 
     fun onImageSelected(url: String?) {

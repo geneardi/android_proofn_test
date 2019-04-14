@@ -36,6 +36,10 @@
           android:theme="@style/AppTheme.Overlay"/>
 
       <activity
+          android:name=".views.activities.EditProfileActivity"
+          android:theme="@style/AppTheme.Overlay"/>
+
+      <activity
           android:name=".views.activities.HomeActivity"
           android:theme="@style/AppTheme.Overlay"/>
 

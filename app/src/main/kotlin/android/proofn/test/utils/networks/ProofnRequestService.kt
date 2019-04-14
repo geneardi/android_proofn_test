@@ -28,6 +28,11 @@ interface ProofnRequestService {
     fun sendMessage(@Header("Authorization") value: String, @Body message: SendMessageMessage)
             : Observable<MessageSentModel>
 
+    @Headers("Content-Type: application/json")
+    @POST("/v1/message/send")
+    fun editProfile(@Header("Authorization") value: String, @Body message: EditProfileMessage)
+            : Observable<UserModel>
+
     @GET("/v1/messages/inbox")
     fun getMessage(@Header("Authorization") value: String): Observable<MessageResponse>
 

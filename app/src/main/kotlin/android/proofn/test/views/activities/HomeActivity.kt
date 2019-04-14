@@ -25,6 +25,7 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -53,6 +54,7 @@ class HomeActivity : BaseActivity<HomePresenter>(), HomeContract.View {
     private val imageViewAvatar : ImageView by lazy { image }
     private val toolbars : Toolbar? by lazy { toolbar }
     private val nav_views : NavigationView by lazy { nav_view }
+    private val editAkun : ImageButton? by lazy { bt_account }
     private var actionBar: ActionBar? = null
     private val drawer : DrawerLayout by lazy { drawer_layout }
     var urlImage: String? = null
@@ -80,6 +82,7 @@ class HomeActivity : BaseActivity<HomePresenter>(), HomeContract.View {
                     ImageFullScreenActivity.TAG -> startActivity(Intent(this@HomeActivity, ImageFullScreenActivity::class.java).
                             putExtra("url", data as String))
                     SendMessageActivity.TAG -> startActivity(Intent(this@HomeActivity, SendMessageActivity::class.java))
+                    EditProfileActivity.TAG -> startActivity(Intent(this@HomeActivity, EditProfileActivity::class.java))
                     else -> Log.e("Cicerone", "Unknown screen: " + command.screenKey)
                 }
             }
@@ -127,6 +130,9 @@ class HomeActivity : BaseActivity<HomePresenter>(), HomeContract.View {
         linearLayoutManager = LinearLayoutManager(this)
         recyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 //        recyclerView.adapter = MessageListAdapter(this, item!!)
+        editAkun?.setOnClickListener {
+            presenter.gotoedit()
+        }
     }
 
     private fun initToolbar() {

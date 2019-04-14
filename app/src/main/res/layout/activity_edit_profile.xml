@@ -22,17 +22,17 @@
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="0.1"
+            android:layout_weight="0.4"
             android:layout_marginLeft="@dimen/spacing_smlarge"
             android:layout_marginRight="@dimen/spacing_smlarge"
             android:gravity="center"
             android:minHeight="?attr/actionBarSize"
-            android:text="To"
+            android:text="First Name"
             android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
             android:textColor="@color/grey_60" />
 
         <EditText
-            android:id="@+id/to"
+            android:id="@+id/firstName"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="01"/>
@@ -47,17 +47,17 @@
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="0.1"
+            android:layout_weight="0.4"
             android:layout_marginLeft="@dimen/spacing_smlarge"
             android:layout_marginRight="@dimen/spacing_smlarge"
             android:gravity="center"
             android:minHeight="?attr/actionBarSize"
-            android:text="cc"
+            android:text="Middle Name"
             android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
             android:textColor="@color/grey_60" />
 
         <EditText
-            android:id="@+id/cc"
+            android:id="@+id/middleName"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"/>
@@ -72,56 +72,22 @@
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="0.1"
+            android:layout_weight="0.4"
             android:layout_marginLeft="@dimen/spacing_smlarge"
             android:layout_marginRight="@dimen/spacing_smlarge"
             android:gravity="center"
             android:minHeight="?attr/actionBarSize"
-            android:text="bcc"
+            android:text="Last Name"
             android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
             android:textColor="@color/grey_60" />
 
         <EditText
-            android:id="@+id/bcc"
+            android:id="@+id/lastName"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"/>
 
     </LinearLayout>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/grey_10" />
-
-    <EditText
-        android:id="@+id/subject"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/spacing_smlarge"
-        android:layout_marginRight="@dimen/spacing_smlarge"
-        android:background="@android:color/transparent"
-        android:gravity="center_vertical"
-        android:hint="Subject"
-        android:minHeight="?attr/actionBarSize"
-        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-        android:textColor="@color/grey_80" />
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/grey_10" />
-
-    <EditText
-        android:id="@+id/content"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="@dimen/spacing_smlarge"
-        android:background="@color/transparent"
-        android:gravity="top"
-        android:hint="Compose Mail"
-        android:minHeight="?attr/actionBarSize"
-        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-        android:textColor="@color/grey_80" />
 
 </LinearLayout>

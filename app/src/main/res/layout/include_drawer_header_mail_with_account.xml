@@ -65,7 +65,7 @@
             android:background="@android:color/transparent"
             android:foreground="?attr/selectableItemBackgroundBorderless"
             android:tint="@android:color/white"
-            app:srcCompat="@drawable/ic_arrow_drop" />
+            app:srcCompat="@drawable/ic_settings" />
     </LinearLayout>
 
 </RelativeLayout>

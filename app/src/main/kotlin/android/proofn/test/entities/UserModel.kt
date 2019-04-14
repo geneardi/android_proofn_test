@@ -8,9 +8,13 @@ import com.google.gson.annotations.SerializedName
 data class UserModel (@SerializedName("id") @Expose val id: String?,
                       @SerializedName("fullName") @Expose val fullName: String?,
                       @SerializedName("email") @Expose val email: String?,
+                      @SerializedName("firstName") @Expose val firstName: String?,
+                      @SerializedName("lastName") @Expose val lastName: String?,
                       @SerializedName("phoneNumber") @Expose val phoneNumber: String?,
                       @SerializedName("avatar") @Expose val avatar: AvatarModel?) : Parcelable {
     constructor(parcel: Parcel) : this(
+            parcel.readString(),
+            parcel.readString(),
             parcel.readString(),
             parcel.readString(),
             parcel.readString(),
@@ -22,6 +26,8 @@ data class UserModel (@SerializedName("id") @Expose val id: String?,
         parcel.writeString(id)
         parcel.writeString(fullName)
         parcel.writeString(email)
+        parcel.writeString(firstName)
+        parcel.writeString(lastName)
         parcel.writeString(phoneNumber)
         parcel.writeParcelable(avatar, flags)
     }
