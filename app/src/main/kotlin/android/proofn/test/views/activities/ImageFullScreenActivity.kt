@@ -1,36 +1,30 @@
 package android.proofn.test.views.activities
 
 import android.app.Activity
+import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.graphics.Bitmap
+import android.media.MediaScannerConnection
 import android.os.Bundle
+import android.os.Environment
 import android.proofn.test.BaseApplication
 import android.proofn.test.R
-import android.proofn.test.contracts.HomeContract
 import android.proofn.test.contracts.ImageFullScreenContract
 import android.proofn.test.entities.MessageModel
-import android.proofn.test.entities.UserModel
 import android.proofn.test.entities.responses.MessageResponse
-import android.proofn.test.interactors.HomeInteractor
 import android.proofn.test.interactors.ImageFullScreenInteractor
 import android.proofn.test.interactors.outputs.GetMessageListener
-import android.proofn.test.interactors.outputs.GetUserProfileListener
-import android.proofn.test.presenters.HomePresenter
 import android.proofn.test.presenters.ImageFullScreenPresenter
 import android.proofn.test.views.adapters.MessageListAdapter
-import android.support.design.widget.NavigationView
-import android.support.v4.widget.DrawerLayout
-import android.support.v7.app.ActionBar
-import android.support.v7.app.ActionBarDrawerToggle
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.Toolbar
+import android.provider.MediaStore
+import android.support.v4.app.ActivityCompat
+import android.support.v4.content.ContextCompat
 import android.util.Log
-import android.view.Menu
-import android.view.MenuItem
 import android.view.View
 import android.widget.ImageButton
 import android.widget.ImageView
-import android.widget.TextView
 import android.widget.Toast
 import com.bumptech.glide.Glide
 import com.orhanobut.hawk.Hawk
@@ -38,28 +32,30 @@ import com.orhanobut.hawk.HawkBuilder
 import com.orhanobut.hawk.LogLevel
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.activity_image_fullscreen.*
-import kotlinx.android.synthetic.main.include_drawer_content.*
-import kotlinx.android.synthetic.main.include_drawer_header_mail_with_account.*
-import kotlinx.android.synthetic.main.toolbar.*
 import ru.terrakok.cicerone.Navigator
 import ru.terrakok.cicerone.commands.Command
 import ru.terrakok.cicerone.commands.Forward
+import java.io.ByteArrayOutputStream
+import java.io.File
+import java.io.FileOutputStream
+import java.io.IOException
+import java.util.*
 
 class ImageFullScreenActivity : BaseActivity<ImageFullScreenPresenter>(), ImageFullScreenContract.View {
 
     private var item : List<MessageModel>? = null
     private lateinit var header : String
     private lateinit var id : String
-
+    private val GALLERY = 1
+    private val CAMERA = 2
     private val imageView: ImageView? by lazy { fullScreenImage }
     private val editImageButton: ImageButton? by lazy { bt_accounts }
-    var urlImage: String? = null
+    private var urlImage: String? = null
 
     private lateinit var mAdapter: MessageListAdapter
-
-    private lateinit var linearLayoutManager: LinearLayoutManager
     companion object {
         const val TAG: String = "HomeActivity"
+        private val IMAGE_DIRECTORY = "/Pictures"
     } 
 
     private val navigator: Navigator? by lazy {
@@ -111,10 +107,11 @@ class ImageFullScreenActivity : BaseActivity<ImageFullScreenPresenter>(), ImageF
         setContentView(R.layout.activity_image_fullscreen)
         val argument = intent.getStringExtra("url")
         id = argument.toString()
-        Glide
-                .with(getContext())
-                .load(urlImage)
-                .into(imageView!!)
+//        Glide
+//                .with(getContext())
+//                .load(urlImage)
+//                .into(imageView!!)
+        editImageButton!!.setOnClickListener { choosePhotoFromGallary() }
         this.init()
     }
 
@@ -125,6 +122,97 @@ class ImageFullScreenActivity : BaseActivity<ImageFullScreenPresenter>(), ImageF
                 .setLogLevel(LogLevel.FULL)
                 .build()
         header = "Bearer "+Hawk.get("token")
+    }
+
+    private fun choosePhotoFromGallary() {
+        val checkSelfPermission = ContextCompat.checkSelfPermission(this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
+        if (checkSelfPermission != PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.WRITE_EXTERNAL_STORAGE), 1)
+        }
+        else{
+            openAlbum()
+        }
+    }
+
+    private fun openAlbum(){
+        val galleryIntent = Intent(Intent.ACTION_PICK,
+                MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+
+        startActivityForResult(galleryIntent, GALLERY)
+    }
+
+    public override fun onActivityResult(requestCode:Int, resultCode:Int, data: Intent?) {
+
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == GALLERY)
+        {
+            if (data != null)
+            {
+                val contentURI = data.data
+                try
+                {
+                    val bitmap = MediaStore.Images.Media.getBitmap(this.contentResolver, contentURI)
+                    imageView?.setImageBitmap(bitmap)
+                    saveImage(bitmap)
+                    Toast.makeText(this@ImageFullScreenActivity, "Image Saved!", Toast.LENGTH_SHORT).show()
+
+                }
+                catch (e: IOException) {
+                    e.printStackTrace()
+                    Toast.makeText(this@ImageFullScreenActivity, "Failed!", Toast.LENGTH_SHORT).show()
+                }
+
+            }
+
+        }
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        when(requestCode){
+            1 ->
+                if (grantResults.isNotEmpty() && grantResults[0] ==PackageManager.PERMISSION_GRANTED){
+                    openAlbum()
+                }
+                else {
+                    Toast.makeText(this, "You deied the permission", Toast.LENGTH_SHORT).show()
+                }
+        }
+    }
+
+    private fun saveImage(myBitmap: Bitmap):String {
+        val bytes = ByteArrayOutputStream()
+        myBitmap.compress(Bitmap.CompressFormat.JPEG, 90, bytes)
+        val wallpaperDirectory = File(
+                (Environment.getExternalStorageDirectory()).toString() + IMAGE_DIRECTORY)
+        // have the object build the directory structure, if needed.
+        Log.d("fee",wallpaperDirectory.toString())
+        if (!wallpaperDirectory.exists())
+        {
+            wallpaperDirectory.mkdirs()
+        }
+
+        try
+        {
+            Log.d("heel",wallpaperDirectory.toString())
+            val f = File(wallpaperDirectory, ((Calendar.getInstance()
+                    .timeInMillis).toString() + ".jpg"))
+            f.createNewFile()
+            val fo = FileOutputStream(f)
+            fo.write(bytes.toByteArray())
+            MediaScannerConnection.scanFile(this,
+                    arrayOf(f.path),
+                    arrayOf("image/jpeg"), null)
+            fo.close()
+            Log.d("TAG", "File Saved::--->" + f.absolutePath)
+
+            return f.absolutePath
+        }
+        catch (e1: IOException) {
+            e1.printStackTrace()
+        }
+
+        return ""
     }
 
     override fun onPause() {
