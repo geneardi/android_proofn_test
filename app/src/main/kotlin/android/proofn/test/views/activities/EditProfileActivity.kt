@@ -7,13 +7,10 @@ import android.os.Bundle
 import android.proofn.test.BaseApplication
 import android.proofn.test.R
 import android.proofn.test.contracts.EditProfileContract
-import android.proofn.test.contracts.SendMessageContract
-import android.proofn.test.entities.MessageSentModel
+import android.proofn.test.entities.UserModel
 import android.proofn.test.interactors.EditProfileInteractor
-import android.proofn.test.interactors.SendMessageInteractor
-import android.proofn.test.interactors.outputs.SendMessageListener
+import android.proofn.test.interactors.outputs.EditProfileListener
 import android.proofn.test.presenters.EditProfilePresenter
-import android.proofn.test.presenters.SendMessagePresenter
 import android.support.v7.widget.Toolbar
 import android.util.Log
 import android.view.Menu
@@ -23,7 +20,6 @@ import android.widget.Toast
 import com.orhanobut.hawk.Hawk
 import com.orhanobut.hawk.HawkBuilder
 import com.orhanobut.hawk.LogLevel
-import kotlinx.android.synthetic.main.activity_compose_message.*
 import kotlinx.android.synthetic.main.activity_edit_profile.*
 import kotlinx.android.synthetic.main.toolbar.*
 import ru.terrakok.cicerone.Navigator
@@ -93,13 +89,13 @@ class EditProfileActivity : BaseActivity<EditProfilePresenter>(), EditProfileCon
     private fun initToolbar() {
         toolbars?.setNavigationIcon(R.drawable.abc_ic_ab_back_material)
         setSupportActionBar(toolbar)
-        supportActionBar!!.title = "Send Message"
+        supportActionBar!!.title = "Edit Profile"
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
     }
 
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.menu_chips, menu)
+        menuInflater.inflate(R.menu.menu_edit, menu)
         return true
     }
 
@@ -114,8 +110,8 @@ class EditProfileActivity : BaseActivity<EditProfilePresenter>(), EditProfileCon
         return super.onOptionsItemSelected(item)
     }
 
-    inner class GetMessageDetailEventListener : SendMessageListener {
-        override fun onResponse(sentModel: MessageSentModel) {
+    inner class GetMessageDetailEventListener : EditProfileListener {
+        override fun onResponse(userModel: UserModel) {
             Toast.makeText(getActivity(), "berhasil",
                     Toast.LENGTH_LONG).show()
             finish()

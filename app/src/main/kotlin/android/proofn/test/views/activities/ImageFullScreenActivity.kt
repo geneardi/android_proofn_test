@@ -26,6 +26,7 @@ import android.util.Log
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.Toast
+import com.bumptech.glide.Glide
 import com.orhanobut.hawk.Hawk
 import com.orhanobut.hawk.HawkBuilder
 import com.orhanobut.hawk.LogLevel
@@ -108,10 +109,10 @@ class ImageFullScreenActivity : BaseActivity<ImageFullScreenPresenter>(), ImageF
         setContentView(R.layout.activity_image_fullscreen)
         val argument = intent.getStringExtra("url")
         id = argument.toString()
-//        Glide
-//                .with(getContext())
-//                .load(urlImage)
-//                .into(imageView!!)
+        Glide
+                .with(getContext())
+                .load(argument)
+                .into(imageView!!)
         editImageButton!!.setOnClickListener { choosePhotoFromGallary() }
         this.init()
     }

@@ -25,7 +25,6 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -54,7 +53,6 @@ class HomeActivity : BaseActivity<HomePresenter>(), HomeContract.View {
     private val imageViewAvatar : ImageView by lazy { image }
     private val toolbars : Toolbar? by lazy { toolbar }
     private val nav_views : NavigationView by lazy { nav_view }
-    private val editAkun : ImageButton? by lazy { bt_account }
     private var actionBar: ActionBar? = null
     private val drawer : DrawerLayout by lazy { drawer_layout }
     var urlImage: String? = null
@@ -129,10 +127,6 @@ class HomeActivity : BaseActivity<HomePresenter>(), HomeContract.View {
         Log.i("token", header)
         linearLayoutManager = LinearLayoutManager(this)
         recyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-//        recyclerView.adapter = MessageListAdapter(this, item!!)
-        editAkun?.setOnClickListener {
-            presenter.gotoedit()
-        }
     }
 
     private fun initToolbar() {
@@ -214,6 +208,9 @@ class HomeActivity : BaseActivity<HomePresenter>(), HomeContract.View {
         navigation_header = nav_view.getHeaderView(0)
         navigation_header.findViewById<CircularImageView>(R.id.avatar).setOnClickListener {
             presenter.onImageSelected(urlImage)
+        }
+        navigation_header.findViewById<CircularImageView>(R.id.bt_account).setOnClickListener {
+            presenter.gotoedit()
         }
     }
     inner class GetUserProfileEventListener : GetUserProfileListener {
