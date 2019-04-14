@@ -1,37 +1,38 @@
 package android.proofn.test.views.activities
 
 import android.app.Activity
-import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.media.MediaScannerConnection
+import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
 import android.proofn.test.BaseApplication
 import android.proofn.test.R
 import android.proofn.test.contracts.ImageFullScreenContract
+import android.proofn.test.entities.AvatarModel
 import android.proofn.test.entities.MessageModel
-import android.proofn.test.entities.responses.MessageResponse
+import android.proofn.test.entities.responses.DefaultResponse
 import android.proofn.test.interactors.ImageFullScreenInteractor
-import android.proofn.test.interactors.outputs.GetMessageListener
+import android.proofn.test.interactors.outputs.SendImageListener
 import android.proofn.test.presenters.ImageFullScreenPresenter
 import android.proofn.test.views.adapters.MessageListAdapter
 import android.provider.MediaStore
 import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
 import android.util.Log
-import android.view.View
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.Toast
-import com.bumptech.glide.Glide
 import com.orhanobut.hawk.Hawk
 import com.orhanobut.hawk.HawkBuilder
 import com.orhanobut.hawk.LogLevel
-import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.activity_image_fullscreen.*
+import okhttp3.MediaType
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import ru.terrakok.cicerone.Navigator
 import ru.terrakok.cicerone.commands.Command
 import ru.terrakok.cicerone.commands.Forward
@@ -153,7 +154,7 @@ class ImageFullScreenActivity : BaseActivity<ImageFullScreenPresenter>(), ImageF
                 {
                     val bitmap = MediaStore.Images.Media.getBitmap(this.contentResolver, contentURI)
                     imageView?.setImageBitmap(bitmap)
-                    saveImage(bitmap)
+                    saveImage(bitmap, contentURI)
                     Toast.makeText(this@ImageFullScreenActivity, "Image Saved!", Toast.LENGTH_SHORT).show()
 
                 }
@@ -180,7 +181,7 @@ class ImageFullScreenActivity : BaseActivity<ImageFullScreenPresenter>(), ImageF
         }
     }
 
-    private fun saveImage(myBitmap: Bitmap):String {
+    private fun saveImage(myBitmap: Bitmap, uri : Uri?):String {
         val bytes = ByteArrayOutputStream()
         myBitmap.compress(Bitmap.CompressFormat.JPEG, 90, bytes)
         val wallpaperDirectory = File(
@@ -198,6 +199,9 @@ class ImageFullScreenActivity : BaseActivity<ImageFullScreenPresenter>(), ImageF
             val f = File(wallpaperDirectory, ((Calendar.getInstance()
                     .timeInMillis).toString() + ".jpg"))
             f.createNewFile()
+            val requestfile = RequestBody.create(MediaType.parse(contentResolver.getType(uri)), f)
+            val body = MultipartBody.Part.createFormData("avatar", f.name, requestfile)
+            presenter.sendImage(this.SendImageEventListener(), "Bearer "+Hawk.get("token") ,body)
             val fo = FileOutputStream(f)
             fo.write(bytes.toByteArray())
             MediaScannerConnection.scanFile(this,
@@ -220,22 +224,12 @@ class ImageFullScreenActivity : BaseActivity<ImageFullScreenPresenter>(), ImageF
         BaseApplication.INSTANCE.proofnCicerone.navigatorHolder.removeNavigator()
     }
 
-    inner class GetMessageEventListener : GetMessageListener {
-        override fun onResponse(messageResponse: MessageResponse) {
-            Toast.makeText(getActivity(), "berhasil",
+    inner class SendImageEventListener : SendImageListener {
+        override fun onResponse(avatarModel: AvatarModel) {
+            Toast.makeText(getActivity(), avatarModel.avatarPathMedium,
                     Toast.LENGTH_LONG).show()
-            item = messageResponse.categorydata
-            mAdapter = MessageListAdapter(this@ImageFullScreenActivity, item!!)
-            recyclerView.adapter = this@ImageFullScreenActivity.mAdapter
-            mAdapter.setOnItemClickListener(object : MessageListAdapter.OnItemClickListener {
-                override fun onItemLongClick(view: View, obj: MessageModel, pos: Int) {
-                    TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-                }
 
-                override fun onItemClick(view: View, obj: MessageModel, position: Int) {
-                    presenter.onItemSelected()
-                }
-            })
+
         }
 
         override fun onFailure(throwable: Throwable) {

@@ -1,9 +1,9 @@
 package android.proofn.test.contracts
 
-import android.proofn.test.interactors.outputs.GetMessageListener
-import android.proofn.test.interactors.outputs.GetUserProfileListener
+import android.proofn.test.interactors.outputs.SendImageListener
 import android.proofn.test.utils.networks.ProofnRequestService
 import android.proofn.test.utils.views.ProgressDialogView
+import okhttp3.MultipartBody
 
 interface ImageFullScreenContract {
     interface View : BaseContract.View
@@ -11,12 +11,10 @@ interface ImageFullScreenContract {
     interface Presenter : BaseContract.Presenter
 
     interface Interactor : BaseContract.Interactor{
-        fun getMessage(proofnRequestService: ProofnRequestService,
-                       getMessageListener: GetMessageListener,
-                       progressDialogView: ProgressDialogView, token: String)
+        fun sendImage(proofnRequestService: ProofnRequestService,
+                       sendImageListener: SendImageListener,
+                       progressDialogView: ProgressDialogView, token: String, image: MultipartBody.Part)
 
-        fun getUserProfile(proofnRequestService: ProofnRequestService,
-                           getUserProfileListener: GetUserProfileListener,
-                           progressDialogView: ProgressDialogView, token: String)
+
     }
 }
