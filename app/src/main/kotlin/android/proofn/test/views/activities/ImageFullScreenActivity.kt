@@ -13,12 +13,9 @@ import android.proofn.test.BaseApplication
 import android.proofn.test.R
 import android.proofn.test.contracts.ImageFullScreenContract
 import android.proofn.test.entities.AvatarModel
-import android.proofn.test.entities.MessageModel
-import android.proofn.test.entities.responses.DefaultResponse
 import android.proofn.test.interactors.ImageFullScreenInteractor
 import android.proofn.test.interactors.outputs.SendImageListener
 import android.proofn.test.presenters.ImageFullScreenPresenter
-import android.proofn.test.views.adapters.MessageListAdapter
 import android.provider.MediaStore
 import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
@@ -45,16 +42,11 @@ import java.util.*
 
 class ImageFullScreenActivity : BaseActivity<ImageFullScreenPresenter>(), ImageFullScreenContract.View {
 
-    private var item : List<MessageModel>? = null
     private lateinit var header : String
-    private lateinit var id : String
     private val GALLERY = 1
-    private val CAMERA = 2
     private val imageView: ImageView? by lazy { fullScreenImage }
     private val editImageButton: ImageButton? by lazy { bt_accounts }
-    private var urlImage: String? = null
 
-    private lateinit var mAdapter: MessageListAdapter
     companion object {
         const val TAG: String = "HomeActivity"
         private val IMAGE_DIRECTORY = "/Pictures"
@@ -108,11 +100,12 @@ class ImageFullScreenActivity : BaseActivity<ImageFullScreenPresenter>(), ImageF
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_image_fullscreen)
         val argument = intent.getStringExtra("url")
-        id = argument.toString()
-        Glide
-                .with(getContext())
-                .load(argument)
-                .into(imageView!!)
+//        if (!argument.isNullOrEmpty()){
+//            Glide
+//                    .with(getContext())
+//                    .load(argument)
+//                    .into(imageView!!)
+//        }
         editImageButton!!.setOnClickListener { choosePhotoFromGallary() }
         this.init()
     }
